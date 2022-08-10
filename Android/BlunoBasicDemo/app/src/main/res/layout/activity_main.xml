@@ -39,7 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignBottom="@id/joystickLeft"
         android:text="0°"
         android:textColor="@android:color/darker_gray"/>
 
@@ -49,7 +50,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView_angle_left"
+        android:layout_alignLeft="@id/joystickLeft"
+        android:layout_alignTop="@+id/textView_angle_left"
+        android:layout_marginLeft="32dp"
         android:text="0%"
         android:textColor="@android:color/darker_gray"/>
 
@@ -59,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView_strength_left"
+        android:layout_alignTop="@id/joystickLeft"
         android:text="0x7F:0x7F"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
@@ -80,7 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignBottom="@id/joystickRight"
         android:text="0°"
         android:textColor="@android:color/darker_gray"/>
 
@@ -89,8 +93,9 @@
         android:id="@+id/textView_strength_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView_angle_right"
+        android:layout_alignRight="@id/joystickRight"
+        android:layout_alignTop="@+id/textView_angle_right"
+        android:layout_marginRight="32dp"
         android:text="0%"
         android:textColor="@android:color/darker_gray"/>
 
@@ -100,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView_strength_right"
+        android:layout_alignTop="@id/joystickRight"
         android:text="0x7F:0x7F"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -155,7 +160,7 @@
     <Button
         android:id="@+id/buttonScan"
         android:layout_width="64dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignLeft="@id/joystickLeft"
         android:layout_alignParentTop="true"
         android:text="Scan" />
@@ -163,7 +168,7 @@
     <Button
         android:id="@+id/buttonLightAdd"
         android:layout_width="64dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignRight="@id/joystickRight"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="634dp"
@@ -173,11 +178,31 @@
     <Button
         android:id="@+id/buttonLightSub"
         android:layout_width="64dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/buttonScan"
         android:layout_alignRight="@id/joystickRight"
         android:layout_alignParentTop="true"
         android:layout_marginRight="64dp"
-        android:layout_alignTop="@id/buttonScan"
         android:text="Light -" />
+
+    <Button
+        android:id="@+id/buttonDebugOff"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/buttonScan"
+        android:layout_alignRight="@id/joystickRight"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="128dp"
+        android:text="Debug OFF" />
+
+    <Button
+        android:id="@+id/buttonDebugOn"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/buttonScan"
+        android:layout_alignRight="@id/joystickRight"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="208dp"
+        android:text="Debug ON" />
 
 </RelativeLayout>
