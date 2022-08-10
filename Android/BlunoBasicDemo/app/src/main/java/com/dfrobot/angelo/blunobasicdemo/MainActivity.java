@@ -1,5 +1,6 @@
 package com.dfrobot.angelo.blunobasicdemo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.content.Intent;
@@ -11,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import io.github.controlwear.virtual.joystick.android.JoystickView;
 import java.util.List;
 
 public class MainActivity  extends BlunoLibrary {
@@ -19,6 +20,16 @@ public class MainActivity  extends BlunoLibrary {
 	private Button buttonSerialSend;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
+
+//	private JoystickView joystickLeft;
+	private TextView mTextViewAngleLeft;
+	private TextView mTextViewStrengthLeft;
+	private TextView mTextViewCoordinateLeft;
+
+//	private JoystickView joystickRight;
+	private TextView mTextViewAngleRight;
+	private TextView mTextViewStrengthRight;
+	private TextView mTextViewCoordinateRight;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +39,42 @@ public class MainActivity  extends BlunoLibrary {
 		request(1000, new OnPermissionsResult() {
 			@Override
 			public void OnSuccess() {
-				Toast.makeText(MainActivity.this,"权限请求成功",Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this,"123456",Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void OnFail(List<String> noPermissions) {
-				Toast.makeText(MainActivity.this,"权限请求失败",Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this,"987654",Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		mTextViewAngleLeft = (TextView) findViewById(R.id.textView_angle_left);
+		mTextViewStrengthLeft = (TextView) findViewById(R.id.textView_strength_left);
+		mTextViewCoordinateLeft = findViewById(R.id.textView_coordinate_left);
+
+		final JoystickView joystickLeft = (JoystickView) findViewById(R.id.joystickLeft);
+		joystickLeft.setOnMoveListener(new JoystickView.OnMoveListener() {
+			//@SuppressLint("DefaultLocale")
+			@Override
+			public void onMove(int angle, int strength) {
+				mTextViewAngleLeft.setText(angle + "°");
+				mTextViewStrengthLeft.setText(strength + "%");
+				mTextViewCoordinateLeft.setText( String.format("x%03d:y%03d", joystickLeft.getNormalizedX(), joystickLeft.getNormalizedY()) );
+			}
+		});
+
+		mTextViewAngleRight = (TextView) findViewById(R.id.textView_angle_right);
+		mTextViewStrengthRight = (TextView) findViewById(R.id.textView_strength_right);
+		mTextViewCoordinateRight = findViewById(R.id.textView_coordinate_right);
+
+		final JoystickView joystickRight = (JoystickView) findViewById(R.id.joystickRight);
+		joystickRight.setOnMoveListener(new JoystickView.OnMoveListener() {
+			//@SuppressLint("DefaultLocale")
+			@Override
+			public void onMove(int angle, int strength) {
+				mTextViewAngleRight.setText(angle + "°");
+				mTextViewStrengthRight.setText(strength + "%");
+				mTextViewCoordinateRight.setText( String.format("x%03d:y%03d", joystickRight.getNormalizedX(), joystickRight.getNormalizedY()) );
 			}
 		});
 

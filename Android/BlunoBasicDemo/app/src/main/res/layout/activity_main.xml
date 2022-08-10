@@ -17,7 +17,8 @@
         android:layout_below="@+id/editText2"
         android:layout_alignStart="@+id/editText2"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/serialSendText">
+        android:layout_alignEnd="@+id/serialSendText"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/serialReveicedText"
@@ -28,8 +29,86 @@
             android:layout_below="@+id/editText2"
             android:layout_alignStart="@+id/editText2"
             android:layout_alignEnd="@+id/serialSendText"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"/>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView_angle_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="64dp"
+        android:text="0°"/>
+
+
+    <TextView
+        android:id="@+id/textView_strength_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_angle_left"
+        android:text="0%"/>
+
+
+    <TextView
+        android:id="@+id/textView_coordinate_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_strength_left"
+        android:text="x050:x050"/>
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joystickRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="64dp"
+        custom:JV_borderWidth="4dp"
+        custom:JV_backgroundColor="#445566"
+        custom:JV_borderColor="#556677"
+        custom:JV_buttonColor="#223344"/>
+
+    <TextView
+        android:id="@+id/textView_angle_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="64dp"
+        android:text="0°"/>
+
+
+    <TextView
+        android:id="@+id/textView_strength_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_angle_right"
+        android:text="0%"/>
+
+
+    <TextView
+        android:id="@+id/textView_coordinate_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_strength_right"
+        android:text="x050:x050"/>
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joystickLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="64dp"
+        custom:JV_backgroundColor="#445566"
+        custom:JV_borderColor="#556677"
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#223344" />
 
     <Button
         android:id="@+id/buttonSerialSend"
@@ -37,7 +116,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/serialSendText"
         android:layout_alignRight="@+id/serialSendText"
-        android:text="Send Data" />
+        android:text="Send Data"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/editText2"
@@ -48,7 +128,8 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:text="Received Data:"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="invisible"/>
 
     <EditText
         android:id="@+id/serialSendText"
@@ -63,13 +144,14 @@
         android:inputType="text"
         android:text="Data sending Area"
         android:textColor="#999999"
-        android:textSize="20dip" />
+        android:textSize="20dip"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/buttonScan"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/serialSendText"
+        android:layout_alignLeft="@id/joystickLeft"
         android:layout_alignParentTop="true"
         android:text="Scan" />
 

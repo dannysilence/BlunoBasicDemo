@@ -33,11 +33,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public abstract  class BlunoLibrary  extends Activity{
+public abstract  class BlunoLibrary  extends Activity {
 
 	private Context mainContext=this;
 
-	//需要的申请权限
 	private  String [] mStrPermission = {
 			Manifest.permission.ACCESS_FINE_LOCATION
 	};
@@ -598,7 +597,7 @@ public abstract  class BlunoLibrary  extends Activity{
 	}
 
 	/**
-	 * 判断请求单个权限
+	 * ???????????
 	 * @param permissions
 	 * @return
 	 */
@@ -611,7 +610,7 @@ public abstract  class BlunoLibrary  extends Activity{
 	}
 
 	/**
-	 * 判断请求权限组
+	 * ????????????
 	 * @return
 	 */
 	protected boolean checkPermissionsAll(){
@@ -626,7 +625,7 @@ public abstract  class BlunoLibrary  extends Activity{
 	}
 
 	/**
-	 * 请求单个权限
+	 * ????????
 	 * @param mPermissions
 	 * @param requestCode
 	 */
@@ -637,7 +636,7 @@ public abstract  class BlunoLibrary  extends Activity{
 	}
 
 	/**
-	 *请求权限
+	 *???????
 	 * @param requestCode
 	 */
 	protected void requestPermissionAll(int requestCode, OnPermissionsResult permissionsResult){
@@ -652,7 +651,7 @@ public abstract  class BlunoLibrary  extends Activity{
 	    		for(int i = 0; i < grantResults.length; i++){
 	    			if(grantResults[i] == PackageManager.PERMISSION_DENIED){
 	    				System.out.println(permissions[i]);
-	    				//如果有失败
+	    				//????????
                         mPerNoList.add(permissions[i]);
 					}
 				}
