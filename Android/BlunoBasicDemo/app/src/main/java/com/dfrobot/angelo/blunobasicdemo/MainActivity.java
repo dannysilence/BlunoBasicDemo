@@ -18,15 +18,17 @@ import java.util.List;
 public class MainActivity  extends BlunoLibrary {
 	private Button buttonScan;
 	private Button buttonSerialSend;
+	private Button buttonLightSub;
+	private Button buttonLightAdd;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
 
-//	private JoystickView joystickLeft;
+	private JoystickView joystickLeft;
 	private TextView mTextViewAngleLeft;
 	private TextView mTextViewStrengthLeft;
 	private TextView mTextViewCoordinateLeft;
 
-//	private JoystickView joystickRight;
+	private JoystickView joystickRight;
 	private TextView mTextViewAngleRight;
 	private TextView mTextViewStrengthRight;
 	private TextView mTextViewCoordinateRight;
@@ -52,14 +54,16 @@ public class MainActivity  extends BlunoLibrary {
 		mTextViewStrengthLeft = (TextView) findViewById(R.id.textView_strength_left);
 		mTextViewCoordinateLeft = findViewById(R.id.textView_coordinate_left);
 
-		final JoystickView joystickLeft = (JoystickView) findViewById(R.id.joystickLeft);
+		joystickLeft = (JoystickView) findViewById(R.id.joystickLeft);
 		joystickLeft.setOnMoveListener(new JoystickView.OnMoveListener() {
 			//@SuppressLint("DefaultLocale")
 			@Override
 			public void onMove(int angle, int strength) {
 				mTextViewAngleLeft.setText(angle + "°");
 				mTextViewStrengthLeft.setText(strength + "%");
-				mTextViewCoordinateLeft.setText( String.format("x%03d:y%03d", joystickLeft.getNormalizedX(), joystickLeft.getNormalizedY()) );
+				mTextViewCoordinateLeft.setText( String.format("0x%02X:0x%02X", Math.round(Math.floor(joystickLeft.getNormalizedX()*0xFF/100))&0xFF, Math.round(Math.floor(joystickLeft.getNormalizedY()*0xFF/100))&0xFF ));
+
+				sendJoystickState();
 			}
 		});
 
@@ -67,14 +71,16 @@ public class MainActivity  extends BlunoLibrary {
 		mTextViewStrengthRight = (TextView) findViewById(R.id.textView_strength_right);
 		mTextViewCoordinateRight = findViewById(R.id.textView_coordinate_right);
 
-		final JoystickView joystickRight = (JoystickView) findViewById(R.id.joystickRight);
+		joystickRight = (JoystickView) findViewById(R.id.joystickRight);
 		joystickRight.setOnMoveListener(new JoystickView.OnMoveListener() {
 			//@SuppressLint("DefaultLocale")
 			@Override
 			public void onMove(int angle, int strength) {
 				mTextViewAngleRight.setText(angle + "°");
 				mTextViewStrengthRight.setText(strength + "%");
-				mTextViewCoordinateRight.setText( String.format("x%03d:y%03d", joystickRight.getNormalizedX(), joystickRight.getNormalizedY()) );
+				mTextViewCoordinateRight.setText( String.format("0x%02X:0x%02X", Math.round(Math.floor(joystickRight.getNormalizedX()*0xFF/100))&0xFF, Math.round(Math.floor(joystickRight.getNormalizedY()*0xFF/100))&0xFF ));
+
+				sendJoystickState();
 			}
 		});
 
@@ -107,6 +113,50 @@ public class MainActivity  extends BlunoLibrary {
 				buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
 			}
 		});
+
+		buttonLightAdd = (Button) findViewById(R.id.buttonLightAdd);
+		buttonLightAdd.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				sendJoystickState(true, false);
+			}
+		});
+
+		buttonLightSub = (Button) findViewById(R.id.buttonLightSub);
+		buttonLightSub.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				sendJoystickState(false, true);
+			}
+		});
+	}
+
+	private static byte _pid = 0;
+	private void sendJoystickState() { this.sendJoystickState(false, false);}
+	private void sendJoystickState(boolean addLight, boolean subLight) {
+		byte buf[] = new byte[10];	// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L9
+		buf[0] = (byte)0xAA;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L10
+		buf[1] = (byte)0x00;		// right joystick, vertical coordinates
+		buf[2] = (byte)0x00;		// right joystick, horizontal coordinates
+		buf[3] = (byte)0x00;		// left joystick, vertical coordinates
+		buf[4] = (byte)0x00;		// left joystick, horizontal coordinates
+		buf[5] = _pid++;			// pid of the message
+		buf[6] = (byte)0x00;		// buttons bit 00-08
+		buf[7] = (byte)0x01;		// buttons bit 08-16
+		buf[8] = (byte)0x07;		// buttons bit 16-24
+		buf[9] = (byte)0xBB;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L11
+
+		buf[1] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickRight.getNormalizedY())*0xFF/100))&0xFF);
+		buf[2] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickRight.getNormalizedX())*0xFF/100))&0xFF);
+		buf[3] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickLeft.getNormalizedY())*0xFF/100))&0xFF);
+		buf[4] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickLeft.getNormalizedX())*0xFF/100))&0xFF);
+
+		if(addLight) buf[7] = (byte)(buf[7]+0x40);
+		if(subLight) buf[7] = (byte)(buf[7]+0x80);
+
+		if(mConnected) serialSend(buf);
 	}
 
 	protected void onResume(){

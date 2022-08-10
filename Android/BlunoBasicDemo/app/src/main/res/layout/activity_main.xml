@@ -8,7 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:keepScreenOn="true">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="64dp"
-        android:text="0°"/>
+        android:text="0°"
+        android:textColor="@android:color/darker_gray"/>
 
 
     <TextView
@@ -48,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView_angle_left"
-        android:text="0%"/>
+        android:text="0%"
+        android:textColor="@android:color/darker_gray"/>
 
 
     <TextView
@@ -57,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView_strength_left"
-        android:text="x050:x050"/>
+        android:text="0x7F:0x7F"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -68,9 +71,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="64dp"
         custom:JV_borderWidth="4dp"
-        custom:JV_backgroundColor="#445566"
-        custom:JV_borderColor="#556677"
-        custom:JV_buttonColor="#223344"/>
+        custom:JV_backgroundColor="#223344"
+        custom:JV_borderColor="#112233"
+        custom:JV_buttonColor="#112233"/>
 
     <TextView
         android:id="@+id/textView_angle_right"
@@ -78,7 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="64dp"
-        android:text="0°"/>
+        android:text="0°"
+        android:textColor="@android:color/darker_gray"/>
 
 
     <TextView
@@ -87,7 +91,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView_angle_right"
-        android:text="0%"/>
+        android:text="0%"
+        android:textColor="@android:color/darker_gray"/>
 
 
     <TextView
@@ -96,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView_strength_right"
-        android:text="x050:x050"/>
+        android:text="0x7F:0x7F"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/joystickLeft"
@@ -105,10 +110,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="64dp"
-        custom:JV_backgroundColor="#445566"
-        custom:JV_borderColor="#556677"
+        custom:JV_backgroundColor="#223344"
+        custom:JV_borderColor="#112233"
         custom:JV_borderWidth="4dp"
-        custom:JV_buttonColor="#223344" />
+        custom:JV_buttonColor="#112233" />
 
     <Button
         android:id="@+id/buttonSerialSend"
@@ -154,5 +159,25 @@
         android:layout_alignLeft="@id/joystickLeft"
         android:layout_alignParentTop="true"
         android:text="Scan" />
+
+    <Button
+        android:id="@+id/buttonLightAdd"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/joystickRight"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="634dp"
+        android:layout_alignTop="@id/buttonScan"
+        android:text="Light +" />
+
+    <Button
+        android:id="@+id/buttonLightSub"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/joystickRight"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="64dp"
+        android:layout_alignTop="@id/buttonScan"
+        android:text="Light -" />
 
 </RelativeLayout>

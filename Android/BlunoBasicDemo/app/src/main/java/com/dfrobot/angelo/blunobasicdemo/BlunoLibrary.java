@@ -38,7 +38,10 @@ public abstract  class BlunoLibrary  extends Activity {
 	private Context mainContext=this;
 
 	private  String [] mStrPermission = {
-			Manifest.permission.ACCESS_FINE_LOCATION
+			Manifest.permission.ACCESS_FINE_LOCATION,
+			Manifest.permission.BLUETOOTH,
+			Manifest.permission.BLUETOOTH_ADMIN,
+			Manifest.permission.BLUETOOTH_PRIVILEGED,
 	};
 
 	private List<String>  mPerList   = new ArrayList<>();
@@ -57,6 +60,12 @@ public abstract  class BlunoLibrary  extends Activity {
 	public void serialSend(String theString){
 		if (mConnectionState == connectionStateEnum.isConnected) {
 			mSCharacteristic.setValue(theString);
+			mBluetoothLeService.writeCharacteristic(mSCharacteristic);
+		}
+	}
+	public void serialSend(byte[] theBuf){
+		if (mConnectionState == connectionStateEnum.isConnected) {
+			mSCharacteristic.setValue(theBuf);
 			mBluetoothLeService.writeCharacteristic(mSCharacteristic);
 		}
 	}
