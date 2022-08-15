@@ -10,20 +10,22 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 import java.util.List;
 
 public class MainActivity  extends BlunoLibrary {
 	private Button buttonScan;
 	private Button buttonSerialSend;
-	private Button buttonDebugOn;
-	private Button buttonDebugOff;
-	private Button buttonLightSub;
-	private Button buttonLightAdd;
+	private ToggleButton buttonDebug;
+	private ToggleButton buttonLight;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
 
@@ -118,40 +120,21 @@ public class MainActivity  extends BlunoLibrary {
 			}
 		});
 
-		buttonLightAdd = (Button) findViewById(R.id.buttonLightAdd);
-		buttonLightAdd.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				sendJoystickState(true, false);
-			}
+		buttonLight = (ToggleButton) findViewById(R.id.buttonLight);
+		buttonLight.setOnCheckedChangeListener((view,isChecked) -> {
+				boolean enable = isChecked;
+				sendJoystickState(enable, !enable);
+				sendJoystickState(enable, !enable);
+				sendJoystickState(enable, !enable);
+				sendJoystickState(enable, !enable);
 		});
 
-		buttonLightSub = (Button) findViewById(R.id.buttonLightSub);
-		buttonLightSub.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				sendJoystickState(false, true);
-			}
-		});
-
-		buttonDebugOn = (Button) findViewById(R.id.buttonDebugOn);
-		buttonDebugOn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				sendJoystickState(false, false, (byte)0x01, (byte)0x07);
-			}
-		});
-
-		buttonDebugOff = (Button) findViewById(R.id.buttonDebugOff);
-		buttonDebugOff.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				sendJoystickState(false, false, (byte)0x08, (byte)0x07);
-			}
+		buttonDebug = (ToggleButton) findViewById(R.id.buttonDebug);
+		buttonDebug.setOnCheckedChangeListener((view, isChecked) -> {
+				boolean enable = isChecked;
+				byte a = (byte)(isChecked ? 0x01 : 0x01);
+				byte b = (byte)(isChecked ? 0x10 : 0x20);
+				sendJoystickState(false, false, a, b);
 		});
 	}
 
@@ -260,10 +243,8 @@ public class MainActivity  extends BlunoLibrary {
 		this.mTextViewStrengthRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.mTextViewCoordinateRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
-		this.buttonDebugOn.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonDebugOff.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonLightAdd.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonLightSub.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override
