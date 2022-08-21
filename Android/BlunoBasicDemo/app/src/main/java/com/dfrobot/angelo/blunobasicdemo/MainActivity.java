@@ -24,9 +24,10 @@ import java.util.List;
 public class MainActivity  extends BlunoLibrary {
 	private Button buttonScan;
 	private Button buttonSerialSend;
-	private ToggleButton buttonMode;
-	private ToggleButton buttonDebug;
-	private ToggleButton buttonLight;
+	private Button buttonDebugOn;
+	private Button buttonDebugOff;
+	private Button buttonLightSub;
+	private Button buttonLightAdd;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
 
@@ -121,28 +122,40 @@ public class MainActivity  extends BlunoLibrary {
 			}
 		});
 
-		buttonLight = (ToggleButton) findViewById(R.id.buttonLight);
-		buttonLight.setOnCheckedChangeListener((view,isChecked) -> {
-				boolean enable = isChecked;
-				sendJoystickState(enable, !enable);
-				sendJoystickState(enable, !enable);
-				sendJoystickState(enable, !enable);
-				sendJoystickState(enable, !enable);
+		buttonLightAdd = (Button) findViewById(R.id.buttonLightAdd);
+		buttonLightAdd.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				sendJoystickState(true, false);
+			}
 		});
 
-		buttonDebug = (ToggleButton) findViewById(R.id.buttonDebug);
-		buttonDebug.setOnCheckedChangeListener((view, isChecked) -> {
-				byte a = (byte)(isChecked ? 0x01 : 0x01);
-				byte b = (byte)(isChecked ? 0x10 : 0x20);
-				sendJoystickState(false, false, a, b);
+		buttonLightSub = (Button) findViewById(R.id.buttonLightSub);
+		buttonLightSub.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				sendJoystickState(false, true);
+			}
 		});
 
-		buttonMode = (ToggleButton) findViewById(R.id.buttonMode);
-		buttonMode.setOnCheckedChangeListener((view, isChecked) -> {
+		buttonDebugOn = (Button) findViewById(R.id.buttonDebugOn);
+		buttonDebugOn.setOnClickListener(new OnClickListener() {
 
-			byte a = (byte)(isChecked ? 0x04 : 0x01);
-			byte b = (byte)(isChecked ? 0x07 : 0x07);
-			sendJoystickState(false, false, a, b);
+			@Override
+			public void onClick(View v) {
+				sendJoystickState(false, false, (byte)0x01, (byte)0x07);
+			}
+		});
+
+		buttonDebugOff = (Button) findViewById(R.id.buttonDebugOff);
+		buttonDebugOff.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				sendJoystickState(false, false, (byte)0x08, (byte)0x07);
+			}
 		});
 	}
 
@@ -251,10 +264,10 @@ public class MainActivity  extends BlunoLibrary {
 		this.mTextViewStrengthRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.mTextViewCoordinateRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
-		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonScan.setVisibility(View.VISIBLE);
+		this.buttonDebugOn.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonDebugOff.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLightAdd.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLightSub.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override
