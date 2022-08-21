@@ -209,4 +209,17 @@
         android:layout_marginRight="208dp"
         android:text="Debug ON" />
 
+    <ToggleButton
+        android:id="@+id/buttonMode"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/buttonScan"
+        android:layout_alignRight="@id/buttonDebug"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="160dp"
+        android:checked="false"
+        android:text="Light"
+        android:textOff="Two-hands"
+        android:textOn="One-hand" />
+
 </RelativeLayout>
