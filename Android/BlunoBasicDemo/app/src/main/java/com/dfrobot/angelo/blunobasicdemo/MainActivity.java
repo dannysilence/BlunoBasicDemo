@@ -24,6 +24,7 @@ import java.util.List;
 public class MainActivity  extends BlunoLibrary {
 	private Button buttonScan;
 	private Button buttonSerialSend;
+	private ToggleButton buttonMode;
 	private ToggleButton buttonDebug;
 	private ToggleButton buttonLight;
 	private EditText serialSendText;
@@ -131,10 +132,17 @@ public class MainActivity  extends BlunoLibrary {
 
 		buttonDebug = (ToggleButton) findViewById(R.id.buttonDebug);
 		buttonDebug.setOnCheckedChangeListener((view, isChecked) -> {
-				boolean enable = isChecked;
 				byte a = (byte)(isChecked ? 0x01 : 0x01);
 				byte b = (byte)(isChecked ? 0x10 : 0x20);
 				sendJoystickState(false, false, a, b);
+		});
+
+		buttonMode = (ToggleButton) findViewById(R.id.buttonMode);
+		buttonMode.setOnCheckedChangeListener((view, isChecked) -> {
+
+			byte a = (byte)(isChecked ? 0x04 : 0x01);
+			byte b = (byte)(isChecked ? 0x07 : 0x07);
+			sendJoystickState(false, false, a, b);
 		});
 	}
 
@@ -243,8 +251,8 @@ public class MainActivity  extends BlunoLibrary {
 		this.mTextViewStrengthRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.mTextViewCoordinateRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
-		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+//		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+//		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override
