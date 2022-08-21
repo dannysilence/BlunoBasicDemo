@@ -179,35 +179,19 @@
         android:layout_alignTop="@id/buttonScan"
         android:text="Debug" />
 
-    <Button
-        android:id="@+id/buttonLightSub"
-        android:layout_width="64dp"
+    <ToggleButton
+        android:id="@+id/buttonLight"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_alignTop="@id/buttonScan"
         android:layout_alignRight="@id/joystickRight"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="64dp"
-        android:text="Light -" />
+        android:layout_marginRight="80dp"
+        android:checked="false"
+        android:textOn="Light"
+        android:textOff="Light"
+        android:layout_alignTop="@id/buttonScan"
+        android:text="Light" />
 
-    <Button
-        android:id="@+id/buttonDebugOff"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@id/buttonScan"
-        android:layout_alignRight="@id/joystickRight"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="128dp"
-        android:text="Debug OFF" />
-
-    <Button
-        android:id="@+id/buttonDebugOn"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@id/buttonScan"
-        android:layout_alignRight="@id/joystickRight"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="208dp"
-        android:text="Debug ON" />
 
     <ToggleButton
         android:id="@+id/buttonMode"
