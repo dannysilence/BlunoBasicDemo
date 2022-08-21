@@ -183,14 +183,15 @@
         android:id="@+id/buttonLight"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_alignTop="@id/buttonScan"
-        android:layout_alignRight="@id/buttonDebug"
+        android:layout_alignRight="@id/joystickRight"
         android:layout_alignParentTop="true"
         android:layout_marginRight="80dp"
         android:checked="false"
-        android:text="Light"
+        android:textOn="Light"
         android:textOff="Light"
-        android:textOn="Light" />
+        android:layout_alignTop="@id/buttonScan"
+        android:text="Light" />
+
 
     <ToggleButton
         android:id="@+id/buttonMode"
