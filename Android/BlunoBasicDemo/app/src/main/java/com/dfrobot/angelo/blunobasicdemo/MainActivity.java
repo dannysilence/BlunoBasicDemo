@@ -23,6 +23,10 @@ import java.util.List;
 
 public class MainActivity  extends BlunoLibrary {
 	private Button buttonScan;
+	private Button buttonUp;
+	private Button buttonLeft;
+	private Button buttonDown;
+	private Button buttonRight;
 	private Button buttonSerialSend;
 	private ToggleButton buttonMode;
 	private ToggleButton buttonDebug;
@@ -162,6 +166,14 @@ public class MainActivity  extends BlunoLibrary {
 
 			buttonMode.setBackgroundResource(x);
 		});
+
+		buttonUp = (Button) findViewById(R.id.buttonUp);
+
+		buttonLeft = (Button) findViewById(R.id.buttonLeft);
+
+		buttonRight = (Button) findViewById(R.id.buttonRight);
+
+		buttonDown = (Button) findViewById(R.id.buttonDown);
 	}
 
 	private static byte _pid = 0;
@@ -241,7 +253,7 @@ public class MainActivity  extends BlunoLibrary {
 		switch (theConnectionState) {											//Four connection state
 		case isConnected:
 			//buttonScan.setText("Connected");
-			buttonScan.setBackgroundResource(R.drawable.ic_sensors_off_black_24dp);
+			buttonScan.setBackgroundResource(R.drawable.ic_sensors_green_24dp);
 			break;
 		case isConnecting:
 			//buttonScan.setText("Connecting");
@@ -273,6 +285,11 @@ public class MainActivity  extends BlunoLibrary {
 		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+
+		this.buttonUp.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonDown.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLeft.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override
