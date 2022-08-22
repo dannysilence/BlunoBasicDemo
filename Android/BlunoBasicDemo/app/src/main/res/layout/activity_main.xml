@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -71,17 +72,16 @@
         android:text="0x7F:0x7F"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/joystickRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="64dp"
-        custom:JV_borderWidth="4dp"
         custom:JV_backgroundColor="#20223344"
         custom:JV_borderColor="#20112233"
-        custom:JV_buttonColor="#20112233"/>
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#20112233" />
 
     <TextView
         android:id="@+id/textView_angle_right"
@@ -113,10 +113,10 @@
         android:layout_alignTop="@id/joystickRight"
         android:text="0x7F:0x7F"/>
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+    <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="64dp"
@@ -160,7 +160,7 @@
         android:text="Data sending Area"
         android:textColor="#999999"
         android:textSize="20dip"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/buttonScan"
@@ -168,8 +168,8 @@
         android:layout_height="40dp"
         android:layout_alignLeft="@id/joystickLeft"
         android:layout_alignParentTop="true"
-        android:text=""
-        android:background="@drawable/ic_sensors_black_24dp"/>
+        android:background="@drawable/ic_sensors_black_24dp"
+        android:text="" />
 
     <ToggleButton
         android:id="@+id/buttonDebug"
@@ -212,5 +212,49 @@
         android:textOn=""
         android:background="@drawable/ic_pan_tool_grey_24dp"
         />
+
+    <Button
+        android:id="@+id/buttonUp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/joystickLeft"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="340dp"
+        android:background="@drawable/ic_arrow_up_black_24dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonDown"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/joystickLeft"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="240dp"
+        android:layout_marginLeft="340dp"
+        android:background="@drawable/ic_arrow_down_black_24dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonLeft"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/joystickLeft"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="300dp"
+        android:background="@drawable/ic_arrow_left_black_24dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonRight"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/joystickLeft"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="380dp"
+        android:background="@drawable/ic_arrow_right_black_24dp"
+        android:text="" />
 
 </RelativeLayout>
