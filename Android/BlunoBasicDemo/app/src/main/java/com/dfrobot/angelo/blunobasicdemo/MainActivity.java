@@ -128,6 +128,12 @@ public class MainActivity  extends BlunoLibrary {
 				sendJoystickState(enable, !enable);
 				sendJoystickState(enable, !enable);
 				sendJoystickState(enable, !enable);
+
+			int x = isChecked
+					? R.drawable.ic_brightness_6_dark_grey_24dp
+					: R.drawable.ic_brightness_6_grey_24dp;
+
+			buttonLight.setBackgroundResource(x);
 		});
 
 		buttonDebug = (ToggleButton) findViewById(R.id.buttonDebug);
@@ -135,6 +141,12 @@ public class MainActivity  extends BlunoLibrary {
 				byte a = (byte)(isChecked ? 0x01 : 0x01);
 				byte b = (byte)(isChecked ? 0x10 : 0x20);
 				sendJoystickState(false, false, a, b);
+
+				int x = isChecked
+						? R.drawable.ic_bug_report_dark_grey_24dp
+						: R.drawable.ic_bug_report_grey_24dp;
+
+				buttonDebug.setBackgroundResource(x);
 		});
 
 		buttonMode = (ToggleButton) findViewById(R.id.buttonMode);
@@ -143,6 +155,12 @@ public class MainActivity  extends BlunoLibrary {
 			byte a = (byte)(isChecked ? 0x04 : 0x01);
 			byte b = (byte)(isChecked ? 0x07 : 0x07);
 			sendJoystickState(false, false, a, b);
+
+			int x = isChecked
+					? R.drawable.ic_pan_tool_dark_grey_24dp
+					: R.drawable.ic_pan_tool_grey_24dp;
+
+			buttonMode.setBackgroundResource(x);
 		});
 	}
 
@@ -222,19 +240,20 @@ public class MainActivity  extends BlunoLibrary {
 	public void onConectionStateChange(connectionStateEnum theConnectionState) {//Once connection state changes, this function will be called
 		switch (theConnectionState) {											//Four connection state
 		case isConnected:
-			buttonScan.setText("Connected");
+			//buttonScan.setText("Connected");
+			buttonScan.setBackgroundResource(R.drawable.ic_sensors_off_black_24dp);
 			break;
 		case isConnecting:
-			buttonScan.setText("Connecting");
+			//buttonScan.setText("Connecting");
 			break;
 		case isToScan:
-			buttonScan.setText("Scan");
+			buttonScan.setBackgroundResource(R.drawable.ic_sensors_black_24dp);
 			break;
 		case isScanning:
-			buttonScan.setText("Scanning");
+			//buttonScan.setText("Scanning");
 			break;
 		case isDisconnecting:
-			buttonScan.setText("isDisconnecting");
+			//buttonScan.setText("isDisconnecting");
 			break;
 		default:
 			break;
@@ -251,8 +270,9 @@ public class MainActivity  extends BlunoLibrary {
 		this.mTextViewStrengthRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.mTextViewCoordinateRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
-//		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-//		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override
