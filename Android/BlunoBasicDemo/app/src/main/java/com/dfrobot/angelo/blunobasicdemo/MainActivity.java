@@ -44,6 +44,9 @@ public class MainActivity  extends BlunoLibrary {
 	private TextView mTextViewStrengthRight;
 	private TextView mTextViewCoordinateRight;
 
+	private byte _btnByteA = 0;
+	private byte _btnByteB = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,38 +64,32 @@ public class MainActivity  extends BlunoLibrary {
 			}
 		});
 
-		mTextViewAngleLeft = (TextView) findViewById(R.id.textView_angle_left);
-		mTextViewStrengthLeft = (TextView) findViewById(R.id.textView_strength_left);
+		mTextViewAngleLeft = findViewById(R.id.textView_angle_left);
+		mTextViewStrengthLeft = findViewById(R.id.textView_strength_left);
 		mTextViewCoordinateLeft = findViewById(R.id.textView_coordinate_left);
 
-		joystickLeft = (JoystickView) findViewById(R.id.joystickLeft);
-		joystickLeft.setOnMoveListener(new JoystickView.OnMoveListener() {
-			//@SuppressLint("DefaultLocale")
-			@Override
-			public void onMove(int angle, int strength) {
-				mTextViewAngleLeft.setText(angle + "°");
-				mTextViewStrengthLeft.setText(strength + "%");
-				mTextViewCoordinateLeft.setText( String.format("0x%02X:0x%02X", Math.round(Math.floor(joystickLeft.getNormalizedX()*0xFF/100))&0xFF, Math.round(Math.floor(joystickLeft.getNormalizedY()*0xFF/100))&0xFF ));
+		joystickLeft = findViewById(R.id.joystickLeft);
+		//@SuppressLint("DefaultLocale")
+		joystickLeft.setOnMoveListener((angle, strength) -> {
+			mTextViewAngleLeft.setText(angle + "°");
+			mTextViewStrengthLeft.setText(strength + "%");
+			mTextViewCoordinateLeft.setText( String.format("0x%02X:0x%02X", Math.round(Math.floor(joystickLeft.getNormalizedX()*0xFF/100))&0xFF, Math.round(Math.floor(joystickLeft.getNormalizedY()*0xFF/100))&0xFF ));
 
-				sendJoystickState();
-			}
+			sendJoystickState();
 		});
 
-		mTextViewAngleRight = (TextView) findViewById(R.id.textView_angle_right);
-		mTextViewStrengthRight = (TextView) findViewById(R.id.textView_strength_right);
+		mTextViewAngleRight = findViewById(R.id.textView_angle_right);
+		mTextViewStrengthRight = findViewById(R.id.textView_strength_right);
 		mTextViewCoordinateRight = findViewById(R.id.textView_coordinate_right);
 
-		joystickRight = (JoystickView) findViewById(R.id.joystickRight);
-		joystickRight.setOnMoveListener(new JoystickView.OnMoveListener() {
-			//@SuppressLint("DefaultLocale")
-			@Override
-			public void onMove(int angle, int strength) {
-				mTextViewAngleRight.setText(angle + "°");
-				mTextViewStrengthRight.setText(strength + "%");
-				mTextViewCoordinateRight.setText( String.format("0x%02X:0x%02X", Math.round(Math.floor(joystickRight.getNormalizedX()*0xFF/100))&0xFF, Math.round(Math.floor(joystickRight.getNormalizedY()*0xFF/100))&0xFF ));
+		joystickRight = findViewById(R.id.joystickRight);
+		//@SuppressLint("DefaultLocale")
+		joystickRight.setOnMoveListener((angle, strength) -> {
+			mTextViewAngleRight.setText(angle + "°");
+			mTextViewStrengthRight.setText(strength + "%");
+			mTextViewCoordinateRight.setText( String.format("0x%02X:0x%02X", Math.round(Math.floor(joystickRight.getNormalizedX()*0xFF/100))&0xFF, Math.round(Math.floor(joystickRight.getNormalizedY()*0xFF/100))&0xFF ));
 
-				sendJoystickState();
-			}
+			sendJoystickState();
 		});
 
         onCreateProcess();														//onCreate Process by BlunoLibrary
@@ -100,38 +97,29 @@ public class MainActivity  extends BlunoLibrary {
 
         serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
 
-        serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
-        serialSendText=(EditText) findViewById(R.id.serialSendText);			//initial the EditText of the sending data
+        serialReceivedText= findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
+        serialSendText= findViewById(R.id.serialSendText);			//initial the EditText of the sending data
 
-        buttonSerialSend = (Button) findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
-        buttonSerialSend.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-				serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
-			}
+        buttonSerialSend = findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
+        buttonSerialSend.setOnClickListener(v -> {
+			serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
 		});
 
-        buttonScan = (Button) findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
-        buttonScan.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-				buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
-			}
+        buttonScan = findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
+        buttonScan.setOnClickListener(v -> {
+			buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
 		});
 
-		buttonLight = (ToggleButton) findViewById(R.id.buttonLight);
+		buttonLight = findViewById(R.id.buttonLight);
 		buttonLight.setOnCheckedChangeListener((view,isChecked) -> {
-				boolean enable = isChecked;
-				sendJoystickState(enable, !enable);
-				sendJoystickState(enable, !enable);
-				sendJoystickState(enable, !enable);
-				sendJoystickState(enable, !enable);
+			byte a = (byte)(isChecked ? 0x40 : 0x80);
+			byte b = (byte)0x00;
+
+			sendButtonClick(a, b);
+			sendButtonClick(a, b);
+			sendButtonClick(a, b);
+			sendButtonClick(a, b);
+			sendButtonClick(a, b);
 
 			int x = isChecked
 					? R.drawable.ic_brightness_6_dark_grey_24dp
@@ -140,25 +128,25 @@ public class MainActivity  extends BlunoLibrary {
 			buttonLight.setBackgroundResource(x);
 		});
 
-		buttonDebug = (ToggleButton) findViewById(R.id.buttonDebug);
+		buttonDebug = findViewById(R.id.buttonDebug);
 		buttonDebug.setOnCheckedChangeListener((view, isChecked) -> {
-				byte a = (byte)(isChecked ? 0x01 : 0x01);
-				byte b = (byte)(isChecked ? 0x10 : 0x20);
-				sendJoystickState(false, false, a, b);
+			byte a = (byte)(isChecked ? 0x11 : 0x21);
+			byte b = (byte)0x00;
+			sendButtonClick(a, b);
 
-				int x = isChecked
-						? R.drawable.ic_bug_report_dark_grey_24dp
-						: R.drawable.ic_bug_report_grey_24dp;
+			int x = isChecked
+					? R.drawable.ic_bug_report_dark_grey_24dp
+					: R.drawable.ic_bug_report_grey_24dp;
 
-				buttonDebug.setBackgroundResource(x);
+			buttonDebug.setBackgroundResource(x);
 		});
 
-		buttonMode = (ToggleButton) findViewById(R.id.buttonMode);
+		buttonMode = findViewById(R.id.buttonMode);
 		buttonMode.setOnCheckedChangeListener((view, isChecked) -> {
 
 			byte a = (byte)(isChecked ? 0x04 : 0x01);
 			byte b = (byte)(isChecked ? 0x07 : 0x07);
-			sendJoystickState(false, false, a, b);
+			sendButtonClick(a, b);
 
 			int x = isChecked
 					? R.drawable.ic_pan_tool_dark_grey_24dp
@@ -167,19 +155,44 @@ public class MainActivity  extends BlunoLibrary {
 			buttonMode.setBackgroundResource(x);
 		});
 
-		buttonUp = (Button) findViewById(R.id.buttonUp);
+		buttonUp = findViewById(R.id.buttonUp);
+		buttonUp.setOnClickListener(v -> {
+			sendButtonClick((byte)0x00, (byte)0x10);
+		});
 
-		buttonLeft = (Button) findViewById(R.id.buttonLeft);
+		buttonLeft = findViewById(R.id.buttonLeft);
+		buttonLeft.setOnClickListener(v -> {
+			sendButtonClick((byte)0x00, (byte)0x20);
+		});
 
-		buttonRight = (Button) findViewById(R.id.buttonRight);
+		buttonRight = findViewById(R.id.buttonRight);
+		buttonRight.setOnClickListener(v -> {
+			sendButtonClick((byte)0x00, (byte)0x40);
+		});
 
-		buttonDown = (Button) findViewById(R.id.buttonDown);
+		buttonDown = findViewById(R.id.buttonDown);
+		buttonDown.setOnClickListener(v -> {
+			sendButtonClick((byte)0x00, (byte)0x80);
+		});
+	}
+
+	private void sendButtonClick(byte valA, byte valB) {
+		_btnByteA = (byte) (_btnByteA | valA);
+		_btnByteB = (byte) (_btnByteB | valB);
+
+		sendJoystickState();
+
+		final Handler handler = new Handler();
+		handler.postDelayed(() -> {
+			_btnByteA = (byte) (((byte)(_btnByteA & valA) == valA) ? _btnByteA - valA : _btnByteA);
+			_btnByteB = (byte) (((byte)(_btnByteB & valB) == valB) ? _btnByteB - valB : _btnByteB);
+
+			sendJoystickState();
+		}, 500);
 	}
 
 	private static byte _pid = 0;
-	private void sendJoystickState() { this.sendJoystickState(false, false, (byte)0x00, (byte)0x00);}
-	private void sendJoystickState(boolean addLight, boolean subLight) { this.sendJoystickState(addLight, subLight, (byte)0x00, (byte)0x00); }
-	private void sendJoystickState(boolean addLight, boolean subLight, byte a, byte b) {
+	private void sendJoystickState() {
 		final byte buf[] = new byte[10];	// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L9
 		buf[0] = (byte)0xAA;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L10
 		buf[1] = (byte)0x00;		// right joystick, vertical coordinates
@@ -202,19 +215,12 @@ public class MainActivity  extends BlunoLibrary {
 		buf[3] = Math.abs(buf[3] - 0x7F) <= 4 ? 0x7F : buf[3];
 		buf[4] = Math.abs(buf[4] - 0x7F) <= 4 ? 0x7F : buf[4];
 
-		if(addLight) buf[7] = (byte)(buf[7]+0x40);
-		if(subLight) buf[7] = (byte)(buf[7]+0x80);
-		buf[7] = (a!=0) ? a : buf[7];
-		buf[8] = (b!=0) ? b : buf[8];
+		buf[7] = _btnByteA;
+		buf[8] = _btnByteB;
 
 		if(mConnected) serialSend(buf);
 		final Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				serialSend(buf);
-			}
-		}, 30);
+		handler.postDelayed(() -> serialSend(buf), 30);
 	}
 
 	protected void onResume(){
