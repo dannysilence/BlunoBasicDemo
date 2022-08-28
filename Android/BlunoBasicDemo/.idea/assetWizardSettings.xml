@@ -318,8 +318,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_arrow_up_black_24dp" />
-                            <entry key="sourceFile" value="D:\code\android\BlunoBasicDemo\Android\BlunoBasicDemo\app\img\arrow_up_black_24dp.svg" />
+                            <entry key="outputName" value="ic_video_camera_front_grey_24dp" />
+                            <entry key="sourceFile" value="D:\code\android\BlunoBasicDemo\Android\BlunoBasicDemo\app\img\video_camera_front_black_24dp.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -28,9 +28,12 @@ public class MainActivity  extends BlunoLibrary {
 	private Button buttonDown;
 	private Button buttonRight;
 	private Button buttonSerialSend;
+	private ToggleButton buttonLens;
+	private ToggleButton buttonLogs;
 	private ToggleButton buttonMode;
 	private ToggleButton buttonDebug;
 	private ToggleButton buttonLight;
+	private ToggleButton buttonVideo;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
 
@@ -141,6 +144,8 @@ public class MainActivity  extends BlunoLibrary {
 			buttonDebug.setBackgroundResource(x);
 		});
 
+
+
 		buttonMode = findViewById(R.id.buttonMode);
 		buttonMode.setOnCheckedChangeListener((view, isChecked) -> {
 
@@ -153,6 +158,29 @@ public class MainActivity  extends BlunoLibrary {
 					: R.drawable.ic_pan_tool_grey_24dp;
 
 			buttonMode.setBackgroundResource(x);
+		});
+
+		buttonLens = findViewById(R.id.buttonLens);
+		buttonLens.setOnCheckedChangeListener((view, isChecked) -> {
+
+			byte a = (byte)(isChecked ? 0x02 : 0x02);
+			byte b = (byte)(isChecked ? 0x07 : 0x07);
+			sendButtonClick(a, b);
+
+			int x = isChecked
+					? R.drawable.ic_lens_dark_grey_24dp
+					: R.drawable.ic_lens_grey_24dp;
+
+			buttonLens.setBackgroundResource(x);
+		});
+
+		buttonLogs = findViewById(R.id.buttonLogs);
+		buttonLogs.setOnCheckedChangeListener((view, isChecked) -> {
+			int x = isChecked
+					? R.drawable.ic_logs_dark_grey_24dp
+					: R.drawable.ic_logs_grey_24dp;
+
+			buttonLogs.setBackgroundResource(x);
 		});
 
 		buttonUp = findViewById(R.id.buttonUp);
@@ -173,6 +201,15 @@ public class MainActivity  extends BlunoLibrary {
 		buttonDown = findViewById(R.id.buttonDown);
 		buttonDown.setOnClickListener(v -> {
 			sendButtonClick((byte)0x00, (byte)0x80);
+		});
+
+		buttonVideo = findViewById(R.id.buttonVideo);
+		buttonVideo.setOnCheckedChangeListener((view, isChecked) -> {
+			int x = isChecked
+					? R.drawable.ic_video_camera_front_dark_grey_24dp
+					: R.drawable.ic_video_camera_front_grey_24dp;
+
+			buttonVideo.setBackgroundResource(x);
 		});
 	}
 
@@ -288,9 +325,12 @@ public class MainActivity  extends BlunoLibrary {
 		this.mTextViewStrengthRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.mTextViewCoordinateRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
+		this.buttonVideo.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLens.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLogs.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
 		this.buttonUp.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonDown.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);

@@ -179,18 +179,31 @@
         android:layout_alignRight="@id/joystickRight"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="634dp"
+        android:background="@drawable/ic_bug_report_grey_24dp"
         android:checked="false"
-        android:textOn=""
         android:textOff=""
-        android:background="@drawable/ic_bug_report_grey_24dp"/>
+        android:textOn="" />
+
+    <ToggleButton
+        android:id="@+id/buttonLogs"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/buttonScan"
+        android:layout_alignRight="@id/buttonDebug"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/ic_logs_grey_24dp"
+        android:checked="false"
+        android:textOff=""
+        android:textOn="" />
 
     <ToggleButton
         android:id="@+id/buttonLight"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignRight="@id/joystickRight"
+        android:layout_alignLeft="@id/buttonMode"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
         android:checked="false"
         android:textOn=""
         android:textOff=""
@@ -203,23 +216,51 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignTop="@id/buttonScan"
-        android:layout_alignRight="@id/buttonDebug"
+        android:layout_alignLeft="@id/buttonScan"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="160dp"
+        android:layout_marginLeft="80dp"
+        android:background="@drawable/ic_pan_tool_grey_24dp"
         android:checked="false"
         android:text="Light"
         android:textOff=""
-        android:textOn=""
-        android:background="@drawable/ic_pan_tool_grey_24dp"
-        />
+        android:textOn="" />
+
+    <ToggleButton
+        android:id="@+id/buttonLens"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/buttonLight"
+        android:layout_alignTop="@id/buttonScan"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="80dp"
+        android:background="@drawable/ic_lens_grey_24dp"
+        android:checked="false"
+        android:text="Lens"
+        android:textOff=""
+        android:textOn="" />
+
+    <ToggleButton
+        android:id="@+id/buttonVideo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/buttonLens"
+        android:layout_alignTop="@id/buttonScan"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="80dp"
+        android:background="@drawable/ic_video_camera_front_grey_24dp"
+        android:checked="false"
+        android:text="Video"
+        android:textOff=""
+        android:textOn="" />
 
     <Button
         android:id="@+id/buttonUp"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignBottom="@id/joystickLeft"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginBottom="160dp"
         android:background="@drawable/ic_arrow_up_black_24dp"
         android:text="" />
 
