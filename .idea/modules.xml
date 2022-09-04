@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BlunoBasicDemo.iml" filepath="$PROJECT_DIR$/.idea/BlunoBasicDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BlunoBasicDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/BlunoBasicDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BlunoBasicDemo.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.iml" filepath="$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/videoplayer/BlunoBasicDemo.videoplayer.unitTest.iml" />
     </modules>
   </component>
 </project>
