@@ -11,21 +11,13 @@
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_brightness_6_grey_24dp.xml" value="0.3275" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_bug_report_dark_grey_24dp.xml" value="0.3275" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_bug_report_grey_24dp.xml" value="0.3275" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_lens_dark_grey_24dp.xml" value="0.314" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_lens_grey_24dp.xml" value="0.314" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_logs_dark_grey_24dp.xml" value="0.3275" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_logs_grey_24dp.xml" value="0.3275" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_pan_tool_black_24dp.xml" value="0.3275" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_pan_tool_dark_grey_24dp.xml" value="0.3275" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_pan_tool_grey_24dp.xml" value="0.3275" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_sensors_black_24dp.xml" value="0.314" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_sensors_green_24dp.xml" value="0.314" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_video_camera_front_dark_grey_24dp.xml" value="0.3275" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/drawable/ic_video_camera_front_grey_24dp.xml" value="0.3275" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/layout/activity_video_player.xml" value="0.4506199230440359" />
+        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/app/src/main/res/mipmap-anydpi-v26/ic_bug.xml" value="0.5215" />
-        <entry key="..\:/code/android/BlunoBasicDemo/Android/BlunoBasicDemo/videoplayer/src/main/res/layout/activity_video.xml" value="0.4514749893116717" />
       </map>
     </option>
   </component>
