@@ -350,16 +350,18 @@ public class MainActivity  extends BlunoLibrary {
 		this.buttonRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 	}
 
+	private String start = String.copyValueOf(new char[] {0xAA});
+	private String end = String.copyValueOf(new char[] {0xBB});
+
 	@Override
 	public void onSerialReceived(String theString) {							//Once connection data received, this function will be called
-		String start = String.copyValueOf(new char[] {0xAA});
-		String end = String.copyValueOf(new char[] {0xBB});
-		//if(theString.startsWith(start) && theString.endsWith(end))
-		//{
-			serialReceivedText.append(theString.substring(2, theString.length()-4));                            //append the text into the EditText
+
+//		if(theString.startsWith(start) && theString.endsWith(end))
+		{
+			serialReceivedText.append(theString.substring(1, theString.length()-2));                            //append the text into the EditText
 			//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
 			((ScrollView) serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
-		//}
+		}
 	}
 
 }
