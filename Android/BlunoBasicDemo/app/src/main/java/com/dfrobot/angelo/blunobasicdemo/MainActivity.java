@@ -28,9 +28,12 @@ public class MainActivity  extends BlunoLibrary {
 	private Button buttonDown;
 	private Button buttonRight;
 	private Button buttonSerialSend;
+	private ToggleButton buttonLens;
+	private ToggleButton buttonLogs;
 	private ToggleButton buttonMode;
 	private ToggleButton buttonDebug;
 	private ToggleButton buttonLight;
+	private ToggleButton buttonVideo;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
 
@@ -38,6 +41,8 @@ public class MainActivity  extends BlunoLibrary {
 	private TextView mTextViewAngleLeft;
 	private TextView mTextViewStrengthLeft;
 	private TextView mTextViewCoordinateLeft;
+
+	private ScrollView logsView;
 
 	private JoystickView joystickRight;
 	private TextView mTextViewAngleRight;
@@ -92,21 +97,21 @@ public class MainActivity  extends BlunoLibrary {
 			sendJoystickState();
 		});
 
-        onCreateProcess();														//onCreate Process by BlunoLibrary
+		onCreateProcess();														//onCreate Process by BlunoLibrary
 
 
-        serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
+		serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
 
-        serialReceivedText= findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
-        serialSendText= findViewById(R.id.serialSendText);			//initial the EditText of the sending data
+		serialReceivedText= findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
+		serialSendText= findViewById(R.id.serialSendText);			//initial the EditText of the sending data
 
-        buttonSerialSend = findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
-        buttonSerialSend.setOnClickListener(v -> {
+		buttonSerialSend = findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
+		buttonSerialSend.setOnClickListener(v -> {
 			serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
 		});
 
-        buttonScan = findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
-        buttonScan.setOnClickListener(v -> {
+		buttonScan = findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
+		buttonScan.setOnClickListener(v -> {
 			buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
 		});
 
@@ -141,6 +146,8 @@ public class MainActivity  extends BlunoLibrary {
 			buttonDebug.setBackgroundResource(x);
 		});
 
+
+
 		buttonMode = findViewById(R.id.buttonMode);
 		buttonMode.setOnCheckedChangeListener((view, isChecked) -> {
 
@@ -153,6 +160,30 @@ public class MainActivity  extends BlunoLibrary {
 					: R.drawable.ic_pan_tool_grey_24dp;
 
 			buttonMode.setBackgroundResource(x);
+		});
+
+		buttonLens = findViewById(R.id.buttonLens);
+		buttonLens.setOnCheckedChangeListener((view, isChecked) -> {
+
+			byte a = (byte)(isChecked ? 0x02 : 0x02);
+			byte b = (byte)(isChecked ? 0x07 : 0x07);
+			sendButtonClick(a, b);
+
+			int x = isChecked
+					? R.drawable.ic_lens_dark_grey_24dp
+					: R.drawable.ic_lens_grey_24dp;
+
+			buttonLens.setBackgroundResource(x);
+		});
+
+		buttonLogs = findViewById(R.id.buttonLogs);
+		buttonLogs.setOnCheckedChangeListener((view, isChecked) -> {
+			int x = isChecked
+					? R.drawable.ic_logs_dark_grey_24dp
+					: R.drawable.ic_logs_grey_24dp;
+
+			buttonLogs.setBackgroundResource(x);
+			logsView.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
 		});
 
 		buttonUp = findViewById(R.id.buttonUp);
@@ -174,6 +205,21 @@ public class MainActivity  extends BlunoLibrary {
 		buttonDown.setOnClickListener(v -> {
 			sendButtonClick((byte)0x00, (byte)0x80);
 		});
+
+		buttonVideo = findViewById(R.id.buttonVideo);
+		buttonVideo.setOnCheckedChangeListener((view, isChecked) -> {
+			int x = isChecked
+					? R.drawable.ic_video_camera_front_dark_grey_24dp
+					: R.drawable.ic_video_camera_front_grey_24dp;
+
+			buttonVideo.setBackgroundResource(x);
+
+//			final VideoPlayer p = new VideoPlayer();
+//			p.setVisible(isChecked);
+		});
+
+		logsView = findViewById(R.id.logsView);
+		logsView.setVisibility(buttonLogs.isChecked() ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	private void sendButtonClick(byte valA, byte valB) {
@@ -193,8 +239,9 @@ public class MainActivity  extends BlunoLibrary {
 
 	private static byte _pid = 0;
 	private void sendJoystickState() {
-		final byte buf[] = new byte[10];	// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L9
+		final byte buf[] = new byte[20];	// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L9
 		buf[0] = (byte)0xAA;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L10
+		//buf[1] = (byte)0xBB;
 		buf[1] = (byte)0x00;		// right joystick, vertical coordinates
 		buf[2] = (byte)0x00;		// right joystick, horizontal coordinates
 		buf[3] = (byte)0x00;		// left joystick, vertical coordinates
@@ -203,7 +250,8 @@ public class MainActivity  extends BlunoLibrary {
 		buf[6] = (byte)0x00;		// buttons bit 00-08
 		buf[7] = (byte)0x00;		// buttons bit 08-16
 		buf[8] = (byte)0x00;		// buttons bit 16-24
-		buf[9] = (byte)0xBB;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L11
+		buf[9] = (byte)0xBB;
+		//buf[11] = (byte)0xAA;// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L11
 
 		buf[1] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickRight.getNormalizedY())*0xFF/100))&0xFF);
 		buf[2] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickRight.getNormalizedX())*0xFF/100))&0xFF);
@@ -228,53 +276,53 @@ public class MainActivity  extends BlunoLibrary {
 		System.out.println("BlUNOActivity onResume");
 		onResumeProcess();														//onResume Process by BlunoLibrary
 	}
-	
-	
-	
+
+
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		onActivityResultProcess(requestCode, resultCode, data);					//onActivityResult Process by BlunoLibrary
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
-    @Override
-    protected void onPause() {
-        super.onPause();
-        onPauseProcess();														//onPause Process by BlunoLibrary
-    }
-	
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		onPauseProcess();														//onPause Process by BlunoLibrary
+	}
+
 	protected void onStop() {
 		super.onStop();
 		onStopProcess();														//onStop Process by BlunoLibrary
 	}
-    
+
 	@Override
-    protected void onDestroy() {
-        super.onDestroy();	
-        onDestroyProcess();														//onDestroy Process by BlunoLibrary
-    }
+	protected void onDestroy() {
+		super.onDestroy();
+		onDestroyProcess();														//onDestroy Process by BlunoLibrary
+	}
 
 	@Override
 	public void onConectionStateChange(connectionStateEnum theConnectionState) {//Once connection state changes, this function will be called
 		switch (theConnectionState) {											//Four connection state
-		case isConnected:
-			//buttonScan.setText("Connected");
-			buttonScan.setBackgroundResource(R.drawable.ic_sensors_green_24dp);
-			break;
-		case isConnecting:
-			//buttonScan.setText("Connecting");
-			break;
-		case isToScan:
-			buttonScan.setBackgroundResource(R.drawable.ic_sensors_black_24dp);
-			break;
-		case isScanning:
-			//buttonScan.setText("Scanning");
-			break;
-		case isDisconnecting:
-			//buttonScan.setText("isDisconnecting");
-			break;
-		default:
-			break;
+			case isConnected:
+				//buttonScan.setText("Connected");
+				buttonScan.setBackgroundResource(R.drawable.ic_sensors_green_24dp);
+				break;
+			case isConnecting:
+				//buttonScan.setText("Connecting");
+				break;
+			case isToScan:
+				buttonScan.setBackgroundResource(R.drawable.ic_sensors_black_24dp);
+				break;
+			case isScanning:
+				//buttonScan.setText("Scanning");
+				break;
+			case isDisconnecting:
+				//buttonScan.setText("isDisconnecting");
+				break;
+			default:
+				break;
 		}
 
 		this.joystickLeft.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
@@ -288,9 +336,13 @@ public class MainActivity  extends BlunoLibrary {
 		this.mTextViewStrengthRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.mTextViewCoordinateRight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
+		this.buttonVideo.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonDebug.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLight.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLens.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.buttonLogs.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.logsView.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
 		this.buttonUp.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonDown.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
@@ -300,10 +352,14 @@ public class MainActivity  extends BlunoLibrary {
 
 	@Override
 	public void onSerialReceived(String theString) {							//Once connection data received, this function will be called
-		// TODO Auto-generated method stub
-		serialReceivedText.append(theString);							//append the text into the EditText
+//		String start = String.copyValueOf(new char[] {0xAA});
+//		String end = String.copyValueOf(new char[] {0xBB});
+		//if(theString.startsWith(start) && theString.endsWith(end))
+		//{
+		serialReceivedText.append(theString.substring(2, theString.length()-4));                            //append the text into the EditText
 		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
-		((ScrollView)serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+		((ScrollView) serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+		//}
 	}
 
 }

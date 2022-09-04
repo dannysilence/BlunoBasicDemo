@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,27 +13,33 @@
     android:keepScreenOn="true">
 
     <ScrollView
+        android:id="@+id/logsView"
+        android:layout_width="396dp"
+        android:layout_height="118dp"
         android:layout_alignLeft="@id/joystickLeft"
-        android:layout_alignRight="@id/joystickRight"
         android:layout_alignTop="@id/buttonScan"
-        android:layout_alignBottom="@id/joystickRight"
-        android:id="@+id/scrollView"
+        android:layout_alignRight="@id/joystickRight"
 
-        android:visibility="invisible"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_alignBottom="@id/textView_coordinate_left"
+        android:layout_marginLeft="380dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginRight="-13dp"
+        android:layout_marginBottom="16dp"
+
+        android:minHeight="80dp"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/serialReveicedText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
             android:ems="10"
+            android:text=""
+
+            android:textAlignment="textStart"
             android:textSize="10sp"
-            android:layout_below="@+id/editText2"
-            android:layout_alignStart="@+id/editText2"
-            android:layout_alignEnd="@+id/serialSendText"
-            android:layout_alignParentBottom="true"
-            android:visibility="invisible"/>
+            android:visibility="visible" />
     </ScrollView>
 
     <TextView
@@ -67,17 +74,17 @@
         android:text="0x7F:0x7F"/>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/joystickRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="64dp"
-        custom:JV_borderWidth="4dp"
+        android:layout_marginBottom="-10dp"
         custom:JV_backgroundColor="#20223344"
         custom:JV_borderColor="#20112233"
-        custom:JV_buttonColor="#20112233"/>
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#20112233" />
 
     <TextView
         android:id="@+id/textView_angle_right"
@@ -109,13 +116,14 @@
         android:layout_alignTop="@id/joystickRight"
         android:text="0x7F:0x7F"/>
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+    <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="64dp"
+        android:layout_marginBottom="-10dp"
         custom:JV_backgroundColor="#20223344"
         custom:JV_borderColor="#20112233"
         custom:JV_borderWidth="4dp"
@@ -134,13 +142,13 @@
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/serialSendText"
         android:layout_below="@+id/serialSendText"
+        android:layout_alignLeft="@+id/serialSendText"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:text="Received Data:"
         android:textSize="25sp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <EditText
         android:id="@+id/serialSendText"
@@ -156,50 +164,70 @@
         android:text="Data sending Area"
         android:textColor="#999999"
         android:textSize="20dip"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/buttonScan"
-        android:layout_width="64dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="0dp"
         android:layout_alignLeft="@id/joystickLeft"
         android:layout_alignParentTop="true"
-        android:text="Scan" />
+        android:background="@drawable/ic_sensors_black_24dp"
+        android:text="" />
 
     <ToggleButton
         android:id="@+id/buttonDebug"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_alignTop="@id/buttonScan"
         android:layout_alignRight="@id/joystickRight"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="634dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/ic_bug_report_grey_24dp"
         android:checked="false"
-        android:textOn="Debug"
-        android:textOff="Debug"
-        android:layout_alignTop="@id/buttonScan"
-        android:text="Debug" />
+        android:textOff=""
+        android:textOn="" />
 
     <ToggleButton
-        android:id="@+id/buttonLight"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonLogs"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignTop="@id/buttonScan"
         android:layout_alignRight="@id/buttonDebug"
         android:layout_alignParentTop="true"
         android:layout_marginRight="80dp"
+        android:background="@drawable/ic_logs_grey_24dp"
+        android:layout_marginTop="0dp"
         android:checked="false"
-        android:text="Light"
-        android:textOff="Light"
-        android:textOn="Light" />
+        android:textOff=""
+        android:textOn="" />
+
+    <ToggleButton
+        android:id="@+id/buttonLight"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/buttonMode"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="0dp"
+        android:checked="false"
+        android:textOn=""
+        android:textOff=""
+        android:layout_alignTop="@id/buttonScan"
+        android:background="@drawable/ic_brightness_6_grey_24dp" />
+
 
     <ToggleButton
         android:id="@+id/buttonMode"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignTop="@id/buttonScan"
-        android:layout_alignRight="@id/buttonDebug"
+        android:layout_alignLeft="@id/buttonScan"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="160dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/ic_pan_tool_grey_24dp"
         android:checked="false"
         android:text="Light"
         android:textOff=""
@@ -237,44 +265,44 @@
 
     <Button
         android:id="@+id/buttonUp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="false"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignBottom="@id/buttonDown"
+        android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="120dp"
         android:background="@drawable/ic_arrow_up_black_24dp"
         android:text="" />
 
     <Button
         android:id="@+id/buttonDown"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignBottom="@id/joystickLeft"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/ic_arrow_down_black_24dp"
         android:text="" />
 
     <Button
         android:id="@+id/buttonLeft"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignLeft="@id/buttonUp"
         android:layout_alignTop="@id/buttonUp"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="-40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="-60dp"
         android:background="@drawable/ic_arrow_left_black_24dp"
         android:text="" />
 
     <Button
         android:id="@+id/buttonRight"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignRight="@id/buttonUp"
         android:layout_alignTop="@id/buttonUp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="-40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="-60dp"
         android:background="@drawable/ic_arrow_right_black_24dp"
         android:text="" />
 
