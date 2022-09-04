@@ -42,6 +42,8 @@ public class MainActivity  extends BlunoLibrary {
 	private TextView mTextViewStrengthLeft;
 	private TextView mTextViewCoordinateLeft;
 
+	private ScrollView logsView;
+
 	private JoystickView joystickRight;
 	private TextView mTextViewAngleRight;
 	private TextView mTextViewStrengthRight;
@@ -181,6 +183,7 @@ public class MainActivity  extends BlunoLibrary {
 					: R.drawable.ic_logs_grey_24dp;
 
 			buttonLogs.setBackgroundResource(x);
+			logsView.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
 		});
 
 		buttonUp = findViewById(R.id.buttonUp);
@@ -210,7 +213,13 @@ public class MainActivity  extends BlunoLibrary {
 					: R.drawable.ic_video_camera_front_grey_24dp;
 
 			buttonVideo.setBackgroundResource(x);
+
+//			final VideoPlayer p = new VideoPlayer();
+//			p.setVisible(isChecked);
 		});
+
+		logsView = findViewById(R.id.logsView);
+		logsView.setVisibility(buttonLogs.isChecked() ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	private void sendButtonClick(byte valA, byte valB) {
@@ -230,8 +239,9 @@ public class MainActivity  extends BlunoLibrary {
 
 	private static byte _pid = 0;
 	private void sendJoystickState() {
-		final byte buf[] = new byte[10];	// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L9
+		final byte buf[] = new byte[20];	// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L9
 		buf[0] = (byte)0xAA;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L10
+		//buf[1] = (byte)0xBB;
 		buf[1] = (byte)0x00;		// right joystick, vertical coordinates
 		buf[2] = (byte)0x00;		// right joystick, horizontal coordinates
 		buf[3] = (byte)0x00;		// left joystick, vertical coordinates
@@ -240,7 +250,8 @@ public class MainActivity  extends BlunoLibrary {
 		buf[6] = (byte)0x00;		// buttons bit 00-08
 		buf[7] = (byte)0x00;		// buttons bit 08-16
 		buf[8] = (byte)0x00;		// buttons bit 16-24
-		buf[9] = (byte)0xBB;		// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L11
+		buf[9] = (byte)0xBB;
+		//buf[11] = (byte)0xAA;// https://github.com/dannysilence/a-robot/blob/main/BleVehicle.ino#L11
 
 		buf[1] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickRight.getNormalizedY())*0xFF/100))&0xFF);
 		buf[2] = (byte)(Math.round(Math.floor(Math.abs(100-this.joystickRight.getNormalizedX())*0xFF/100))&0xFF);
@@ -331,6 +342,7 @@ public class MainActivity  extends BlunoLibrary {
 		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLens.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLogs.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.logsView.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
 		this.buttonUp.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonDown.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
@@ -340,10 +352,14 @@ public class MainActivity  extends BlunoLibrary {
 
 	@Override
 	public void onSerialReceived(String theString) {							//Once connection data received, this function will be called
-		// TODO Auto-generated method stub
-		serialReceivedText.append(theString);							//append the text into the EditText
-		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
-		((ScrollView)serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+		String start = String.copyValueOf(new char[] {0xAA});
+		String end = String.copyValueOf(new char[] {0xBB});
+		//if(theString.startsWith(start) && theString.endsWith(end))
+		//{
+			serialReceivedText.append(theString.substring(2, theString.length()-4));                            //append the text into the EditText
+			//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
+			((ScrollView) serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+		//}
 	}
 
 }
