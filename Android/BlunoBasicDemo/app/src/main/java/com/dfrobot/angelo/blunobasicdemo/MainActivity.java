@@ -99,6 +99,8 @@ public class MainActivity  extends BlunoLibrary {
 
 		onCreateProcess();														//onCreate Process by BlunoLibrary
 
+		//new getSupportActionBar().
+		//getActionBar().hide();
 
 		serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
 
@@ -193,12 +195,12 @@ public class MainActivity  extends BlunoLibrary {
 
 		buttonLeft = findViewById(R.id.buttonLeft);
 		buttonLeft.setOnClickListener(v -> {
-			sendButtonClick((byte)0x00, (byte)0x20);
+			sendButtonClick((byte)0x00, (byte)0x2B);
 		});
 
 		buttonRight = findViewById(R.id.buttonRight);
 		buttonRight.setOnClickListener(v -> {
-			sendButtonClick((byte)0x00, (byte)0x40);
+			sendButtonClick((byte)0x00, (byte)0x4B);
 		});
 
 		buttonDown = findViewById(R.id.buttonDown);
@@ -342,7 +344,7 @@ public class MainActivity  extends BlunoLibrary {
 		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLens.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLogs.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.logsView.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		this.logsView.setVisibility(this.buttonLogs.isChecked() ? View.VISIBLE : View.INVISIBLE);
 
 		this.buttonUp.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonDown.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
@@ -356,9 +358,11 @@ public class MainActivity  extends BlunoLibrary {
 //		String end = String.copyValueOf(new char[] {0xBB});
 		//if(theString.startsWith(start) && theString.endsWith(end))
 		//{
-		serialReceivedText.append(theString.substring(2, theString.length()-4));                            //append the text into the EditText
+		serialReceivedText.append(theString);                            //append the text into the EditText
 		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
-		((ScrollView) serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+		try {
+			((ScrollView) serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+		}catch(Exception e) {}
 		//}
 	}
 
