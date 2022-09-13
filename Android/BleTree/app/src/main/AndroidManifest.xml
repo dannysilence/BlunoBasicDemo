@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dfrobot.angelo.bletree">
 
 
@@ -12,7 +13,8 @@ PackageManager.hasSystemFeature(FEATURE_BLUETOOTH_LE) -->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="CoarseFineLocation" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +28,8 @@ PackageManager.hasSystemFeature(FEATURE_BLUETOOTH_LE) -->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:label="BleTree">
+            android:label="BleTree"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

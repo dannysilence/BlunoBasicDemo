@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
-
+//        classpath 'com.google.android.material:material:1.6.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -17,6 +17,8 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
+        mavenCentral()
         maven{ url 'https://maven.aliyun.com/repository/google'}
         maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
         maven{ url 'https://maven.aliyun.com/repository/public'}

@@ -1,9 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="actionBarStyle" >@style/Theme.AppCompat.NoActionBar</item>
-    </style>
+<!--    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="actionBarStyle" >@style/Theme.AppCompat.NoActionBar</item>-->
+<!--    </style>-->
+
+<!--    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">-->
+<!--        &lt;!&ndash; ... &ndash;&gt;-->
+<!--    </style>-->
 
 </resources>

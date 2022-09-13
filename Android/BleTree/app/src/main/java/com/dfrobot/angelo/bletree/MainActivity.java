@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+
 import java.util.List;
 
 public class MainActivity  extends BlunoLibrary {
@@ -25,6 +27,18 @@ public class MainActivity  extends BlunoLibrary {
 	private ToggleButton buttonMode;
 	private ToggleButton buttonSettings;
 	private ToggleButton buttonPump;
+
+	private CircularProgressIndicator humidityLevel;
+	private TextView humidityLevelValue;
+	private TextView humidityLevelLabel;
+
+	private CircularProgressIndicator soilHumidityLevel;
+	private TextView temperatureLevelValue;
+	private TextView temperatureLevelLabel;
+
+	private CircularProgressIndicator temperatureLevel;
+	private TextView soilHumidityLevelValue;
+	private TextView soilHumidityLevelLabel;
 
 	private EditText serialSendText;
 	private TextView serialReceivedText;
@@ -157,6 +171,26 @@ public class MainActivity  extends BlunoLibrary {
 //			logsView.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
 		});
 
+		humidityLevel = findViewById(R.id.humidityLevel);
+		humidityLevelLabel = findViewById(R.id.humidityLevelLabel);
+		humidityLevelValue = findViewById(R.id.humidityLevelValue);
+		humidityLevel.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		humidityLevelLabel.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		humidityLevelValue.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+
+		temperatureLevel = findViewById(R.id.temperatureLevel);
+		temperatureLevelValue = findViewById(R.id.temperatureLevelValue);
+		temperatureLevelLabel = findViewById(R.id.temperatureLevelLabel);
+		temperatureLevel.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		temperatureLevelValue.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		temperatureLevelLabel.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+
+		soilHumidityLevel = findViewById(R.id.soilHumidityLevel);
+		soilHumidityLevelLabel = findViewById(R.id.soilHumidityLabel);
+		soilHumidityLevelValue = findViewById(R.id.soilHumidityLevelValue);
+		soilHumidityLevel.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		soilHumidityLevelLabel.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
+		soilHumidityLevelValue.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 
 		logsView = findViewById(R.id.logsView);
 		logsView.setVisibility(buttonLogs.isChecked() && mConnected ? View.VISIBLE : View.INVISIBLE);
@@ -261,7 +295,7 @@ public class MainActivity  extends BlunoLibrary {
 				//buttonScan.setText("Scanning");
 				break;
 			case isDisconnecting:
-				//buttonScan.setText("isDisconnecting");
+
 
 				break;
 			default:
@@ -283,7 +317,31 @@ public class MainActivity  extends BlunoLibrary {
 		this.buttonPump.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonMode.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 		this.buttonLogs.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
-		this.logsView.setVisibility(this.buttonLogs.isChecked() ? View.VISIBLE : View.INVISIBLE);
+		this.logsView.setVisibility(this.buttonLogs.isChecked() && mConnected ? View.VISIBLE : View.INVISIBLE);
+
+		if(mConnected) {
+			this.humidityLevel.show();
+			this.temperatureLevel.show();
+			this.soilHumidityLevel.show();
+
+			humidityLevelLabel.setVisibility(View.VISIBLE);
+			humidityLevelValue.setVisibility(View.VISIBLE);
+			temperatureLevelLabel.setVisibility(View.VISIBLE);
+			temperatureLevelValue.setVisibility(View.VISIBLE);
+			soilHumidityLevelLabel.setVisibility(View.VISIBLE);
+			soilHumidityLevelValue.setVisibility(View.VISIBLE);
+		} else {
+			this.humidityLevel.hide();
+			this.temperatureLevel.hide();
+			this.soilHumidityLevel.hide();
+
+			humidityLevelLabel.setVisibility(View.INVISIBLE);
+			humidityLevelValue.setVisibility(View.INVISIBLE);
+			temperatureLevelLabel.setVisibility(View.INVISIBLE);
+			temperatureLevelValue.setVisibility(View.INVISIBLE);
+			soilHumidityLevelLabel.setVisibility(View.INVISIBLE);
+			soilHumidityLevelValue.setVisibility(View.INVISIBLE);
+		}
 
 //		this.buttonUp.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
 //		this.buttonDown.setVisibility(mConnected ? View.VISIBLE : View.INVISIBLE);
@@ -301,6 +359,33 @@ public class MainActivity  extends BlunoLibrary {
 		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
 		try {
 			((ScrollView) serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
+
+			if(theString.contains("AH:")) {
+				String p = theString.substring(theString.indexOf("AH:")+"AH:".length()).trim();
+				p = p.substring(0, p.indexOf(","));
+
+				int v = new Integer(p);
+				humidityLevel.setProgress(v);
+				humidityLevelValue.setText(v+"%");
+			}
+
+			if(theString.contains("SH:")) {
+				String p = theString.substring(theString.indexOf("SH:")+"SH:".length()).trim();
+				p = p.substring(0, p.indexOf(","));
+
+				int v = new Integer(p) / 10;
+				soilHumidityLevel.setProgress(v);
+				soilHumidityLevelValue.setText(v+"%");
+			}
+
+			if(theString.contains("AT:")) {
+				String p = theString.substring(theString.indexOf("AT:")+"AT:".length()).trim();
+				p = p.substring(0, p.indexOf(","));
+
+				int v = new Integer(p);
+				temperatureLevel.setProgress(v);
+				temperatureLevelValue.setText(v+"°");
+			}
 		}catch(Exception e) {}
 		//}
 	}
